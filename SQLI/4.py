@@ -23,7 +23,7 @@ def textcol(url, num_col, string):
         sql_payload = "' union select " + ','.join(payload_list) + "-- -"
         r = requests.get(url + sql_payload, verify=False, proxies=proxies)
 
-        soup = BeautifulSoup(r.text, 'html.parser')
+        soup = BeautifulSoup(r.text, 'html.parser') # ignore banner on text 
         for banner in soup.find_all(class_="academyLabBanner"):
             banner.decompose()
 
