@@ -1,7 +1,3 @@
-# My Own Created Web Hacking Scripts
+# 🔥 Web Hacking Scripts (Portswigger's web security academy based) 🛠️
 
-Welcome to my collection of custom web hacking scripts! This repository contains various scripts that I have developed to assist with web security testing and ethical hacking. Each script is designed to target specific vulnerabilities or automate certain tasks commonly encountered in web penetration testing.
-
-## Introduction
-
-This project is a collection of scripts I've created to help identify and exploit vulnerabilities in web applications. These scripts are intended for educational purposes and to assist security professionals in testing the security of web applications.
+A collection of my custom scripts 🐍, crafted to tackle and solve PortSwigger's Web Security Academy labs 🧪. These scripts automate common tasks, identify vulnerabilities, and make lab completion faster and more efficient. 🚀 Whether it's SQLi, XSS, or anything, these tools are designed to assist in learning and practicing web security testing. 🌐🔒
